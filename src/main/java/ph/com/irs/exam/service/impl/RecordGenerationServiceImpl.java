@@ -9,6 +9,9 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,13 +67,14 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
    * generate a random date
    * @return
    */
-  public static Date randomDate() {
+  public static LocalDateTime randomDate() {
     int randomDateToMinus = (int) (Math.random() * 30 + 1);
     int randomTimeToMinus = (int) (Math.random() * 23 + 1);
     LocalDate randomDate = LocalDate.now().minusDays(randomDateToMinus);
     LocalTime randomTime = LocalTime.now().minusHours(randomTimeToMinus);
     LocalDateTime localDateTime = LocalDateTime.of(randomDate, randomTime);
-    return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    //return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    return localDateTime;
   }
 
   /**

@@ -9,8 +9,8 @@ import ph.com.irs.exam.model.Login;
  */
 public interface LoginService {
 
-  List<Login> getAllLogins();
-
   List<Date> getAllUniqueLoginDate();
+
+  List<Login> getAllLoginsBy(String startDate, String endDate);
 
 }

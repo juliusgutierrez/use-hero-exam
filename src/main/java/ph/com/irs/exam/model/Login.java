@@ -1,6 +1,7 @@
 package ph.com.irs.exam.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Created by julius on 10/09/2018.
@@ -22,7 +25,7 @@ public class Login implements Serializable {
   @Column(name = "user")
   private String user;
   @Column(name = "login_time")
-  private Date loginTime;
+  private LocalDateTime loginTime;
   @Column(name = "attribute1")
   private String attribute1;
   @Column(name = "attribute2")
@@ -48,11 +51,11 @@ public class Login implements Serializable {
     this.user = user;
   }
 
-  public Date getLoginTime() {
+  public LocalDateTime getLoginTime() {
     return loginTime;
   }
 
-  public void setLoginTime(Date loginTime) {
+  public void setLoginTime(LocalDateTime loginTime) {
     this.loginTime = loginTime;
   }
 
