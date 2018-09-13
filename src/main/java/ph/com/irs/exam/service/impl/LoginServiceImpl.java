@@ -1,10 +1,12 @@
 package ph.com.irs.exam.service.impl;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +46,17 @@ public class LoginServiceImpl implements LoginService {
   }
 
   @Override
-  public List<Login> getAllLoginsBy(String startDate, String endDate, List<String> attr1, List<String> attr2,
+  public Map<String, Long> getAllLoginsBy(String startDate, String endDate, List<String> attr1,
+      List<String> attr2,
       List<String> attr3, List<String> attr4) {
 
     Predicate predicate = new LoginFilterPredicateBuilder()
-        .attr1(attr1)
-        .attr2(attr2)
-        .attr3(attr3)
-        .attr4(attr4)
+        .attr1(attr1).attr2(attr2).attr3(attr3).attr4(attr4)
         .startDate(startDate)
         .endDate(endDate)
         .build();
 
-    return (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
+    return loginRepository.doItRight(predicate);
   }
 
   private QPageRequest gotoPage(int page) {

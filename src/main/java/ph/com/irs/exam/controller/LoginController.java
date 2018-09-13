@@ -1,8 +1,12 @@
 package ph.com.irs.exam.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.querydsl.core.Tuple;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +54,7 @@ public class LoginController {
 
   @GetMapping("/logins")
   @ResponseBody
-  public ResponseEntity<BaseResponseDTO> getAllLoginsBy(
+  public ResponseEntity getAllLoginsBy(
       @RequestParam(value = "start", required = false) String startDate,
       @RequestParam(value = "end", required = false) String endDate,
       @RequestParam(value = "attribute1", required = false) List<String> attr1,
@@ -59,13 +63,14 @@ public class LoginController {
       @RequestParam(value = "attribute4", required = false) List<String> attr4) {
 
     long startTime = System.currentTimeMillis();
-    List<Login> loginList = loginService
+    Map<String, Long> loginList = loginService
         .getAllLoginsBy(startDate, endDate, attr1, attr2, attr3, attr4);
-    BaseResponseDTO<Login> responseDTO = new BaseResponseDTO<>();
-    responseDTO.setData(loginList);
+
+    BaseResponseDTO<Map<String, Integer>> responseDTO = new BaseResponseDTO<>();
+    responseDTO.setData(null);
     long stopTime = System.currentTimeMillis();
     LOGGER.debug("total time spent [{}]", (stopTime - startTime));
-    return ResponseEntity.ok(responseDTO);
+    return ResponseEntity.ok(loginList);
   }
 
   @GetMapping("/dates1")

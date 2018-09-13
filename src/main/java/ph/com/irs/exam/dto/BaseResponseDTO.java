@@ -12,6 +12,7 @@ public class BaseResponseDTO<T> {
   protected String code;
   List<T> data;
 
+
   public String getMessage() {
     return message;
   }

@@ -14,6 +14,7 @@ import ph.com.irs.exam.model.Login;
  */
 @Repository
 public interface LoginRepository extends CrudRepository<Login, Long>,
+    LoginRepositoryCustom,
     PagingAndSortingRepository<Login, Long>,
     QuerydslPredicateExecutor<Login> {
 
