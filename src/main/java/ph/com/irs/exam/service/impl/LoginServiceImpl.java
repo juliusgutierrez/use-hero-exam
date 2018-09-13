@@ -33,13 +33,29 @@ public class LoginServiceImpl implements LoginService {
   }
 
   @Override
-  public List<Login> getAllLoginsBy(String startDate, String endDate) {
+  public List<Login> getAllUsersBy(String startDate, String endDate) {
     LOGGER.debug("start-date : [{}], end-date : [{}]", startDate, endDate);
 
     Predicate predicate = new LoginFilterPredicateBuilder()
         .startDate(startDate)
         .endDate(endDate)
         .build();
+    return (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
+  }
+
+  @Override
+  public List<Login> getAllLoginsBy(String startDate, String endDate, List<String> attr1, List<String> attr2,
+      List<String> attr3, List<String> attr4) {
+
+    Predicate predicate = new LoginFilterPredicateBuilder()
+        .attr1(attr1)
+        .attr2(attr2)
+        .attr3(attr3)
+        .attr4(attr4)
+        .startDate(startDate)
+        .endDate(endDate)
+        .build();
+
     return (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
   }
 

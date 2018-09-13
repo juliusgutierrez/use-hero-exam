@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ph.com.irs.exam.dto.BaseResponseDTO;
 import ph.com.irs.exam.model.Login;
 import ph.com.irs.exam.service.LoginService;
-import ph.com.irs.exam.service.impl.LoginServiceImpl;
 
 /**
  * Created by julius on 10/09/2018.
@@ -36,12 +35,32 @@ public class LoginController {
 
   @GetMapping("/users")
   @ResponseBody
-  public ResponseEntity<BaseResponseDTO> getAllLogins(
+  public ResponseEntity<BaseResponseDTO> getAllUsersBy(
       @RequestParam(value = "start", required = false) String startDate,
       @RequestParam(value = "end", required = false) String endDate) {
 
     long startTime = System.currentTimeMillis();
-    List<Login> loginList = loginService.getAllLoginsBy(startDate, endDate);
+    List<Login> loginList = loginService.getAllUsersBy(startDate, endDate);
+    BaseResponseDTO<Login> responseDTO = new BaseResponseDTO<>();
+    responseDTO.setData(loginList);
+    long stopTime = System.currentTimeMillis();
+    LOGGER.debug("total time spent [{}]", (stopTime - startTime));
+    return ResponseEntity.ok(responseDTO);
+  }
+
+  @GetMapping("/logins")
+  @ResponseBody
+  public ResponseEntity<BaseResponseDTO> getAllLoginsBy(
+      @RequestParam(value = "start", required = false) String startDate,
+      @RequestParam(value = "end", required = false) String endDate,
+      @RequestParam(value = "attribute1", required = false) List<String> attr1,
+      @RequestParam(value = "attribute2", required = false) List<String> attr2,
+      @RequestParam(value = "attribute3", required = false) List<String> attr3,
+      @RequestParam(value = "attribute4", required = false) List<String> attr4) {
+
+    long startTime = System.currentTimeMillis();
+    List<Login> loginList = loginService
+        .getAllLoginsBy(startDate, endDate, attr1, attr2, attr3, attr4);
     BaseResponseDTO<Login> responseDTO = new BaseResponseDTO<>();
     responseDTO.setData(loginList);
     long stopTime = System.currentTimeMillis();

@@ -11,6 +11,9 @@ public interface LoginService {
 
   List<Date> getAllUniqueLoginDate();
 
-  List<Login> getAllLoginsBy(String startDate, String endDate);
+  List<Login> getAllUsersBy(String startDate, String endDate);
+
+  List<Login> getAllLoginsBy(String startDate, String endDate,
+      List<String> attr1, List<String> attr2, List<String> attr3, List<String> attr4);
 
 }
