@@ -3,14 +3,12 @@ package ph.com.irs.exam.service.impl;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import ph.com.irs.exam.dao.LoginRepository;
 import ph.com.irs.exam.dao.filter.LoginFilterPredicateBuilder;
@@ -25,10 +23,6 @@ import ph.com.irs.exam.service.LoginService;
 public class LoginServiceImpl implements LoginService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
-  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-  @PersistenceContext
-  private EntityManager entityManager;
 
   @Autowired
   private LoginRepository loginRepository;
@@ -46,9 +40,11 @@ public class LoginServiceImpl implements LoginService {
         .startDate(startDate)
         .endDate(endDate)
         .build();
-    List<Login> logins = (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
-    LOGGER.debug("count result [{}]", logins.size());
-    return logins;
+    return (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
+  }
+
+  private QPageRequest gotoPage(int page) {
+    return new QPageRequest(page, 500, orderByLoginTimeAsc());
   }
 
   private OrderSpecifier<LocalDateTime> orderByLoginTimeAsc() {
