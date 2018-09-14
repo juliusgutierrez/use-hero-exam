@@ -125,6 +125,15 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>1.3.2</version>
+        <configuration>
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+          <cloudSdkPath>../../../julius/Documents/appengine-java-sdk-1.9.64/bin</cloudSdkPath>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
