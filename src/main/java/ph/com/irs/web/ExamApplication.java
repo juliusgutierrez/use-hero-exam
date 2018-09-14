@@ -17,7 +17,6 @@ public class ExamApplication {
   @PostConstruct
   void started() {
     TimeZone.setDefault(TimeZone.getTimeZone("GMT+0"));
-
   }
 
 }

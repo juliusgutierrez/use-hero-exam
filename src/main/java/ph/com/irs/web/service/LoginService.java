@@ -17,7 +17,7 @@ public interface LoginService {
   List<Date> getAllUniqueLoginDate();
 
   /**
-   * Retrieves all Logins based on parameter
+   * Retrieves Logins based on parameter
    * @param startDate
    * @param endDate
    * @return
@@ -26,7 +26,7 @@ public interface LoginService {
 
 
   /**
-   *
+   * Retrieves users and count of logins
    * @param startDate
    * @param endDate
    * @param attr1

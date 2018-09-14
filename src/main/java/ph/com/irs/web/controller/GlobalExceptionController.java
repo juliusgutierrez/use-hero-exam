@@ -20,7 +20,7 @@ public class GlobalExceptionController {
       .getLogger(GlobalExceptionController.class);
 
   /**
-   * Exception Handler for DianaCoreException
+   * Exception Handler for Exception
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<BaseResponseDTO> handleMR(Exception ex) {
