@@ -1,4 +1,4 @@
-package ph.com.irs.exam.commons;
+package ph.com.irs.web.commons;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;

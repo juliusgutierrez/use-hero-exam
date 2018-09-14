@@ -1,10 +1,5 @@
-package ph.com.irs.exam.controller;
+package ph.com.irs.web.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.querydsl.core.Tuple;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -14,11 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import ph.com.irs.exam.dto.BaseResponseDTO;
-import ph.com.irs.exam.model.Login;
-import ph.com.irs.exam.service.LoginService;
+import ph.com.irs.web.dto.BaseResponseDTO;
+import ph.com.irs.web.model.Login;
+import ph.com.irs.web.service.LoginService;
 
 /**
  * Created by julius on 10/09/2018.
@@ -38,14 +32,13 @@ public class LoginController {
   }
 
   @GetMapping("/users")
-  @ResponseBody
   public ResponseEntity<BaseResponseDTO> getAllUsersBy(
       @RequestParam(value = "start", required = false) String startDate,
       @RequestParam(value = "end", required = false) String endDate) {
 
     long startTime = System.currentTimeMillis();
-    List<Login> loginList = loginService.getAllUsersBy(startDate, endDate);
-    BaseResponseDTO<Login> responseDTO = new BaseResponseDTO<>();
+    List<String> loginList = loginService.getAllUniqueUsersBy(startDate, endDate);
+    BaseResponseDTO<String> responseDTO = new BaseResponseDTO<>();
     responseDTO.setData(loginList);
     long stopTime = System.currentTimeMillis();
     LOGGER.debug("total time spent [{}]", (stopTime - startTime));
@@ -53,7 +46,6 @@ public class LoginController {
   }
 
   @GetMapping("/logins")
-  @ResponseBody
   public ResponseEntity getAllLoginsBy(
       @RequestParam(value = "start", required = false) String startDate,
       @RequestParam(value = "end", required = false) String endDate,
@@ -65,19 +57,11 @@ public class LoginController {
     long startTime = System.currentTimeMillis();
     Map<String, Long> loginList = loginService
         .getAllLoginsBy(startDate, endDate, attr1, attr2, attr3, attr4);
-
     BaseResponseDTO<Map<String, Integer>> responseDTO = new BaseResponseDTO<>();
     responseDTO.setData(null);
     long stopTime = System.currentTimeMillis();
     LOGGER.debug("total time spent [{}]", (stopTime - startTime));
     return ResponseEntity.ok(loginList);
-  }
-
-  @GetMapping("/dates1")
-  public ResponseEntity da() {
-    Date s = new Date();
-    System.out.println(s);
-    return ResponseEntity.ok(LocalDate.now());
   }
 
 

@@ -1,6 +1,5 @@
-package ph.com.irs.exam.service.impl;
+package ph.com.irs.web.service.impl;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import java.time.LocalDateTime;
@@ -10,13 +9,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
-import ph.com.irs.exam.dao.LoginRepository;
-import ph.com.irs.exam.dao.filter.LoginFilterPredicateBuilder;
-import ph.com.irs.exam.model.Login;
-import ph.com.irs.exam.model.QLogin;
-import ph.com.irs.exam.service.LoginService;
+import ph.com.irs.web.dao.LoginRepository;
+import ph.com.irs.web.dao.filter.LoginFilterPredicateBuilder;
+import ph.com.irs.web.model.Login;
+import ph.com.irs.web.model.QLogin;
+import ph.com.irs.web.service.LoginService;
 
 /**
  * Created by julius on 10/09/2018.
@@ -35,14 +33,15 @@ public class LoginServiceImpl implements LoginService {
   }
 
   @Override
-  public List<Login> getAllUsersBy(String startDate, String endDate) {
+  public List<String> getAllUniqueUsersBy(String startDate, String endDate) {
     LOGGER.debug("start-date : [{}], end-date : [{}]", startDate, endDate);
 
     Predicate predicate = new LoginFilterPredicateBuilder()
         .startDate(startDate)
         .endDate(endDate)
         .build();
-    return (List<Login>) loginRepository.findAll(predicate, orderByLoginTimeAsc());
+
+    return loginRepository.findUsersBy(predicate);
   }
 
   @Override
@@ -56,11 +55,7 @@ public class LoginServiceImpl implements LoginService {
         .endDate(endDate)
         .build();
 
-    return loginRepository.doItRight(predicate);
-  }
-
-  private QPageRequest gotoPage(int page) {
-    return new QPageRequest(page, 500, orderByLoginTimeAsc());
+    return loginRepository.findUserAndLoginCountBy(predicate);
   }
 
   private OrderSpecifier<LocalDateTime> orderByLoginTimeAsc() {

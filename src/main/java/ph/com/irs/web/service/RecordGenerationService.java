@@ -1,4 +1,4 @@
-package ph.com.irs.exam.service;
+package ph.com.irs.web.service;
 
 /**
  * Created by julius on 11/09/2018.

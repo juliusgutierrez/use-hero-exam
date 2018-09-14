@@ -1,4 +1,4 @@
-package ph.com.irs.exam.dto;
+package ph.com.irs.web.dto;
 
 import java.util.List;
 

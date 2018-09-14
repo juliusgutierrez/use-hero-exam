@@ -1,23 +1,17 @@
-package ph.com.irs.exam.service.impl;
+package ph.com.irs.web.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.temporal.TemporalUnit;
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ph.com.irs.exam.dao.LoginRepository;
-import ph.com.irs.exam.model.Login;
-import ph.com.irs.exam.service.RecordGenerationService;
+import ph.com.irs.web.dao.LoginRepository;
+import ph.com.irs.web.model.Login;
+import ph.com.irs.web.service.RecordGenerationService;
 
 /**
  * Created by julius on 11/09/2018.

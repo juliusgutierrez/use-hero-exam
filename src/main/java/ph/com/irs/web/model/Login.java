@@ -1,4 +1,4 @@
-package ph.com.irs.exam.model;
+package ph.com.irs.web.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

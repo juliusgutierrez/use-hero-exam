@@ -1,4 +1,4 @@
-package ph.com.irs.exam.dao.filter;
+package ph.com.irs.web.dao.filter;
 
 import com.querydsl.core.types.Predicate;
 import java.time.LocalDate;
@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
-import ph.com.irs.exam.commons.OptionalBooleanBuilder;
-import ph.com.irs.exam.model.QLogin;
+import ph.com.irs.web.commons.OptionalBooleanBuilder;
+import ph.com.irs.web.model.QLogin;
 
 /**
  * Created by julius on 12/09/2018.
