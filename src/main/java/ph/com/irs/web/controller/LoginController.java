@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ph.com.irs.web.dto.BaseResponseDTO;
+import ph.com.irs.web.dto.BaseResponseDTO.Status;
 import ph.com.irs.web.model.Login;
 import ph.com.irs.web.service.LoginService;
 
@@ -36,12 +37,11 @@ public class LoginController {
       @RequestParam(value = "start", required = false) String startDate,
       @RequestParam(value = "end", required = false) String endDate) {
 
-    long startTime = System.currentTimeMillis();
     List<String> loginList = loginService.getAllUniqueUsersBy(startDate, endDate);
-    BaseResponseDTO<String> responseDTO = new BaseResponseDTO<>();
+    BaseResponseDTO<List<String>> responseDTO = new BaseResponseDTO<>();
+    responseDTO.setStatus(Status.SUCCESS);
     responseDTO.setData(loginList);
-    long stopTime = System.currentTimeMillis();
-    LOGGER.debug("total time spent [{}]", (stopTime - startTime));
+
     return ResponseEntity.ok(responseDTO);
   }
 
@@ -54,14 +54,13 @@ public class LoginController {
       @RequestParam(value = "attribute3", required = false) List<String> attr3,
       @RequestParam(value = "attribute4", required = false) List<String> attr4) {
 
-    long startTime = System.currentTimeMillis();
     Map<String, Long> loginList = loginService
         .getAllLoginsBy(startDate, endDate, attr1, attr2, attr3, attr4);
-    BaseResponseDTO<Map<String, Integer>> responseDTO = new BaseResponseDTO<>();
-    responseDTO.setData(null);
-    long stopTime = System.currentTimeMillis();
-    LOGGER.debug("total time spent [{}]", (stopTime - startTime));
-    return ResponseEntity.ok(loginList);
+    BaseResponseDTO<Map<String, Long>> responseDTO = new BaseResponseDTO<>();
+    responseDTO.setStatus(Status.SUCCESS);
+    responseDTO.setData(loginList);
+
+    return ResponseEntity.ok(responseDTO);
   }
 
 

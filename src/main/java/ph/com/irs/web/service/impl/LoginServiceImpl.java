@@ -1,8 +1,6 @@
 package ph.com.irs.web.service.impl;
 
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ph.com.irs.web.dao.LoginRepository;
 import ph.com.irs.web.dao.filter.LoginFilterPredicateBuilder;
-import ph.com.irs.web.model.Login;
-import ph.com.irs.web.model.QLogin;
 import ph.com.irs.web.service.LoginService;
 
 /**
@@ -35,7 +31,6 @@ public class LoginServiceImpl implements LoginService {
   @Override
   public List<String> getAllUniqueUsersBy(String startDate, String endDate) {
     LOGGER.debug("start-date : [{}], end-date : [{}]", startDate, endDate);
-
     Predicate predicate = new LoginFilterPredicateBuilder()
         .startDate(startDate)
         .endDate(endDate)
@@ -48,6 +43,8 @@ public class LoginServiceImpl implements LoginService {
   public Map<String, Long> getAllLoginsBy(String startDate, String endDate, List<String> attr1,
       List<String> attr2,
       List<String> attr3, List<String> attr4) {
+    LOGGER.debug("start-date : [{}], end-date : [{}], attributes : [{}-{}-{}-{}]",
+        startDate, endDate, attr1, attr2, attr3, attr4);
 
     Predicate predicate = new LoginFilterPredicateBuilder()
         .attr1(attr1).attr2(attr2).attr3(attr3).attr4(attr4)
@@ -56,10 +53,6 @@ public class LoginServiceImpl implements LoginService {
         .build();
 
     return loginRepository.findUserAndLoginCountBy(predicate);
-  }
-
-  private OrderSpecifier<LocalDateTime> orderByLoginTimeAsc() {
-    return QLogin.login.loginTime.asc();
   }
 
 }

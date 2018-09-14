@@ -1,17 +1,24 @@
 package ph.com.irs.web.dto;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Created by julius on 12/09/2018.
  */
+@JsonInclude(Include.NON_NULL)
 public class BaseResponseDTO<T> {
 
-  protected String message;
-  protected boolean status;        // mr specific code
-  protected String code;
-  List<T> data;
+  private String message;
+  private Status status;
+  private String code;
+  private T data;
 
+  public enum Status {
+    SUCCESS,
+    ERROR
+    ;
+  }
 
   public String getMessage() {
     return message;
@@ -21,11 +28,11 @@ public class BaseResponseDTO<T> {
     this.message = message;
   }
 
-  public boolean isStatus() {
+  public Status getStatus() {
     return status;
   }
 
-  public void setStatus(boolean status) {
+  public void setStatus(Status status) {
     this.status = status;
   }
 
@@ -37,11 +44,11 @@ public class BaseResponseDTO<T> {
     this.code = code;
   }
 
-  public List<T> getData() {
+  public T getData() {
     return data;
   }
 
-  public void setData(List<T> data) {
+  public void setData(T data) {
     this.data = data;
   }
 }
