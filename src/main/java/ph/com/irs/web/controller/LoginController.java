@@ -1,5 +1,6 @@
 package ph.com.irs.web.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -29,7 +30,10 @@ public class LoginController {
 
   @GetMapping("/dates")
   public ResponseEntity getAllUniqueDates() {
-    return ResponseEntity.ok(loginService.getAllUniqueLoginDate());
+    BaseResponseDTO<List<Date>> responseDTO = new BaseResponseDTO<>();
+    responseDTO.setStatus(Status.SUCCESS);
+    responseDTO.setData(loginService.getAllUniqueLoginDate());
+    return ResponseEntity.ok(responseDTO);
   }
 
   @GetMapping("/users")
