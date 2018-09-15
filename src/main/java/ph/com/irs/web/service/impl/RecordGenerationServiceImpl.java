@@ -65,9 +65,11 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
   public static LocalDateTime randomDate() {
     int randomDateToMinus = (int) (Math.random() * 30 + 1);
     int randomTimeToMinus = (int) (Math.random() * 23 + 1);
+    int randomMonth = (int) (Math.random() * 12 + 1);
     LocalDate randomDate = LocalDate.now().minusDays(randomDateToMinus);
     LocalTime randomTime = LocalTime.now().minusHours(randomTimeToMinus);
-    LocalDateTime localDateTime = LocalDateTime.of(randomDate, randomTime);
+    LocalDateTime localDateTime = LocalDateTime.of(randomDate, randomTime)
+        .withMonth(randomMonth);
     return localDateTime;
   }
 
