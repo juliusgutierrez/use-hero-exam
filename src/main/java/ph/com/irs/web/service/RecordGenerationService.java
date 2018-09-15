@@ -5,6 +5,6 @@ package ph.com.irs.web.service;
  */
 public interface RecordGenerationService {
 
-  void doGenerate(long count);
+  void doGenerate(Long count);
 
 }

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,13 +35,13 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
 
   @Transactional
   @Override
-  public void doGenerate(long count) {
+  public void doGenerate(Long count) {
 
-    if (count <= 0) {
+    if (count == null) {
       count = DEFAULT_COUNT;
     }
 
-    for (int index = 1; index < count; index++) {
+    for (int index = 0; index < count; index++) {
       Login login = new Login();
       login.setLoginTime(randomDate());
       String userName = users[(int) (Math.random() * users.length)];
