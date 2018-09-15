@@ -18,7 +18,7 @@ public class DummyController {
   private RecordGenerationService generationService;
 
   @GetMapping("/generate")
-  public void generateDummyData(@RequestParam(value = "count", required = false) long count) {
+  public void generateDummyData(@RequestParam(value = "count", required = false) Long count) {
     generationService.doGenerate(count);
   }
 

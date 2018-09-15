@@ -25,7 +25,6 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public List<Date> getAllUniqueLoginDate() {
-    System.out.println("p");
     return loginRepository.findAllUniqueDates();
   }
 
