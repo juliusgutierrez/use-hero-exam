@@ -67,7 +67,6 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
     LocalDate randomDate = LocalDate.now().minusDays(randomDateToMinus);
     LocalTime randomTime = LocalTime.now().minusHours(randomTimeToMinus);
     LocalDateTime localDateTime = LocalDateTime.of(randomDate, randomTime);
-    //return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     return localDateTime;
   }
 
