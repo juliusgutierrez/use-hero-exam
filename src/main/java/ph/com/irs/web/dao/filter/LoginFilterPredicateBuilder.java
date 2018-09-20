@@ -16,7 +16,7 @@ import ph.com.irs.web.model.QLogin;
 public class LoginFilterPredicateBuilder {
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
-  private final QLogin LOGIN = QLogin.login;
+  private final QLogin login = QLogin.login;
   private LocalDateTime start;
   private LocalDateTime end;
   private List<String> attributes1;
@@ -68,12 +68,12 @@ public class LoginFilterPredicateBuilder {
 
   public Predicate build() {
     return new OptionalBooleanBuilder()
-        .notNullAnd(LOGIN.loginTime::after, this.start)
-        .notNullAnd(LOGIN.loginTime::before, this.end)
-        .notEmptyAnd(LOGIN.attribute1::in, this.attributes1)
-        .notEmptyAnd(LOGIN.attribute2::in, this.attributes2)
-        .notEmptyAnd(LOGIN.attribute3::in, this.attributes3)
-        .notEmptyAnd(LOGIN.attribute4::in, this.attributes4)
+        .notNullAnd(login.loginTime::after, this.start)
+        .notNullAnd(login.loginTime::before, this.end)
+        .notEmptyAnd(login.attribute1::in, this.attributes1)
+        .notEmptyAnd(login.attribute2::in, this.attributes2)
+        .notEmptyAnd(login.attribute3::in, this.attributes3)
+        .notEmptyAnd(login.attribute4::in, this.attributes4)
         .build();
   }
 

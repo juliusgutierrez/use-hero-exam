@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,7 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
 
   private static final Long DEFAULT_COUNT = 100000L;
 
-  private static String[] users = {
+  private static String[] USERS = {
       "Janette", "Everette", "Angelica", "Zechariah", "Anya", "Precious", "Makenzie", "Mohammad",
       "Kristofer", "Catherine", "Darby", "Haskell"
   };
@@ -44,7 +43,7 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
     for (int index = 0; index < count; index++) {
       Login login = new Login();
       login.setLoginTime(randomDate());
-      String userName = users[(int) (Math.random() * users.length)];
+      String userName = USERS[(int) (Math.random() * USERS.length)];
       login.setUser(userName);
       login.setAttribute1(createAttr("A"));
       login.setAttribute2(createAttr("B"));
@@ -60,7 +59,6 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
 
   /**
    * generate a random date
-   * @return
    */
   public static LocalDateTime randomDate() {
     int randomDateToMinus = (int) (Math.random() * 30 + 1);
@@ -75,8 +73,6 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
 
   /**
    * create a random attributes based on prefix
-   * @param c
-   * @return
    */
   public static String createAttr(String c) {
     int length = 2;

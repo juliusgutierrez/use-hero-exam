@@ -28,6 +28,10 @@ public class LoginController {
   @Autowired
   private LoginService loginService;
 
+  /**
+   * retrieve all unique dates
+   * @return
+   */
   @GetMapping("/dates")
   public ResponseEntity getAllUniqueDates() {
     BaseResponseDTO<List<Date>> responseDTO = new BaseResponseDTO<>();
@@ -36,6 +40,12 @@ public class LoginController {
     return ResponseEntity.ok(responseDTO);
   }
 
+  /**
+   * get all unique users
+   * @param startDate
+   * @param endDate
+   * @return
+   */
   @GetMapping("/users")
   public ResponseEntity<BaseResponseDTO> getAllUsersBy(
       @RequestParam(value = "start", required = false) String startDate,
@@ -49,6 +59,16 @@ public class LoginController {
     return ResponseEntity.ok(responseDTO);
   }
 
+  /**
+   * get all users with login count
+   * @param startDate
+   * @param endDate
+   * @param attr1
+   * @param attr2
+   * @param attr3
+   * @param attr4
+   * @return
+   */
   @GetMapping("/logins")
   public ResponseEntity getAllLoginsBy(
       @RequestParam(value = "start", required = false) String startDate,

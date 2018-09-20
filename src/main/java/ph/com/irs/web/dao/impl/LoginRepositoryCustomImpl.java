@@ -18,7 +18,7 @@ import ph.com.irs.web.model.QLogin;
 @Repository
 public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
 
-  private final QLogin LOGIN = QLogin.login;
+  private final QLogin login = QLogin.login;
 
   @Autowired
   private JPAQueryFactory queryFactory;
@@ -26,11 +26,11 @@ public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
   @Override
   public List<String> findUsersBy(Predicate predicate) {
     List<String> users = queryFactory
-        .select(LOGIN.user)
-        .from(LOGIN)
+        .select(login.user)
+        .from(login)
         .where(predicate)
-        .groupBy(LOGIN.user)
-        .orderBy(LOGIN.user.asc())
+        .groupBy(login.user)
+        .orderBy(login.user.asc())
         .fetch();
     return users;
   }
@@ -40,11 +40,11 @@ public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
 
     NumberPath<Long> count = Expressions.numberPath(Long.class, "c");
     Map<String, Long> logs = queryFactory
-        .select(LOGIN.user, LOGIN.loginTime.count().as(count))
-        .from(LOGIN)
+        .select(login.user, login.loginTime.count().as(count))
+        .from(login)
         .where(predicate)
-        .groupBy(LOGIN.user)
-        .transform(GroupBy.groupBy(LOGIN.user).as(LOGIN.loginTime.count().as(count)));
+        .groupBy(login.user)
+        .transform(GroupBy.groupBy(login.user).as(login.loginTime.count().as(count)));
 
     return logs;
   }
