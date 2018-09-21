@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ph.com.irs.web.dao.LoginRepository;
 import ph.com.irs.web.service.impl.LoginServiceImpl;
