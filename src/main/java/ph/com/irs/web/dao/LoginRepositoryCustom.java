@@ -18,7 +18,4 @@ public interface LoginRepositoryCustom {
    * @return
    */
   Map<String, Long> findUserAndLoginCountBy(Predicate predicate);
-
-
-  List<String> findAllUniqueDates2();
 }

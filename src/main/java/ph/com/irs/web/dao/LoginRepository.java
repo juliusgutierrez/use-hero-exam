@@ -20,8 +20,10 @@ public interface LoginRepository extends CrudRepository<Login, Long>,
 
   /**
    * Retrieves all unique dates
+   * @return
    */
-  @Query(value = "SELECT DATE(login_time) FROM login GROUP BY login_time ORDER BY login_time ASC",
+  @Query(value = "SELECT DATE_FORMAT(DATE(login_time), '%Y%m%d') logintime "
+      + "FROM login GROUP BY logintime ORDER BY logintime ASC",
       nativeQuery = true)
   List<Date> findAllUniqueDates();
 
