@@ -5,8 +5,12 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,14 +45,29 @@ public class LoginServiceImplTests {
 
   @Before
   public void setUp() {
-    Login login = new Login();
-    login.setUser("Juan");
-    login.setAttribute1("AAA");
-    login.setAttribute2("BAA");
-    login.setAttribute3("CAA");
-    login.setAttribute4("DAA");
-    login.setLoginTime(LocalDateTime.now());
-    loginRepository.save(login);
+    Login juanLogin = new Login();
+    juanLogin.setUser("Juan");
+    juanLogin.setAttribute1("AAA");
+    juanLogin.setAttribute2("BAA");
+    juanLogin.setAttribute3("CAA");
+    juanLogin.setAttribute4("DAA");
+
+    LocalDate firstDaySept2018 = LocalDate.of(2018, Month.SEPTEMBER, 1);
+    LocalDateTime septDateTime = LocalDateTime.of(firstDaySept2018, LocalTime.now());
+    juanLogin.setLoginTime(septDateTime);
+    loginRepository.save(juanLogin);
+
+    Login pedroLogin = new Login();
+    pedroLogin.setUser("Pedro");
+    pedroLogin.setAttribute1("ABC");
+    pedroLogin.setAttribute2("BAA");
+    pedroLogin.setAttribute3("CBB");
+    pedroLogin.setAttribute4("DAA");
+
+    LocalDate firstDayAug2018 = LocalDate.of(2018, Month.AUGUST, 1);
+    LocalDateTime augDateTime = LocalDateTime.of(firstDayAug2018, LocalTime.now());
+    pedroLogin.setLoginTime(augDateTime);
+    loginRepository.save(pedroLogin);
 
   }
 
@@ -56,14 +75,14 @@ public class LoginServiceImplTests {
   @Test(expected = JpaSystemException.class)
   public void testGetAllUniqueLoginDate() {
     List<Date> dateList = loginService.getAllUniqueLoginDate();
-    Assert.assertNotNull(dateList.get(0));
+    Assert.assertThat(dateList, hasSize(2));
   }
 
 
   @Test
   public void testGetAllUniqueUsersByShouldReturnNotNull() {
     List<String> users = loginService.getAllUniqueUsersBy(null, null);
-    Assert.assertNotNull(users);
+    Assert.assertThat(users, hasSize(2));
   }
 
   @Test
