@@ -3,8 +3,6 @@ package ph.com.irs.web.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ph.com.irs.web.dto.BaseResponseDTO;
 import ph.com.irs.web.dto.BaseResponseDTO.Status;
-import ph.com.irs.web.model.Login;
 import ph.com.irs.web.service.LoginService;
 
 /**
@@ -23,14 +20,11 @@ import ph.com.irs.web.service.LoginService;
 @RequestMapping("/test")
 public class LoginController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
-
   @Autowired
   private LoginService loginService;
 
   /**
    * retrieve all unique dates
-   * @return
    */
   @GetMapping("/dates")
   public ResponseEntity getAllUniqueDates() {
@@ -42,9 +36,6 @@ public class LoginController {
 
   /**
    * get all unique users
-   * @param startDate
-   * @param endDate
-   * @return
    */
   @GetMapping("/users")
   public ResponseEntity<BaseResponseDTO> getAllUsersBy(
@@ -61,13 +52,6 @@ public class LoginController {
 
   /**
    * get all users with login count
-   * @param startDate
-   * @param endDate
-   * @param attr1
-   * @param attr2
-   * @param attr3
-   * @param attr4
-   * @return
    */
   @GetMapping("/logins")
   public ResponseEntity getAllLoginsBy(

@@ -23,7 +23,7 @@ public class GlobalExceptionController {
    * Exception Handler for Exception
    */
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<BaseResponseDTO> handleMR(Exception ex) {
+  public ResponseEntity<BaseResponseDTO> handleException(Exception ex) {
     LOGGER.warn(ex.getMessage(), ex);
     BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
     baseResponseDTO.setStatus(Status.ERROR);

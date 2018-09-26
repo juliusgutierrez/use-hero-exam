@@ -1,4 +1,7 @@
-package ph.com.irs.web.service;
+package ph.com.irs.web.service.impl;
+
+
+import static org.hamcrest.CoreMatchers.hasItem;
 
 import com.querydsl.core.types.Predicate;
 import java.util.ArrayList;
@@ -6,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,31 +17,35 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import ph.com.irs.web.ExamApplication;
+import ph.com.irs.web.config.H2Config;
 import ph.com.irs.web.dao.LoginRepository;
-import ph.com.irs.web.service.impl.LoginServiceImpl;
-
-import static org.hamcrest.CoreMatchers.*;
+import ph.com.irs.web.service.LoginService;
 
 /**
- * Created by julius on 15/09/2018.
+ * Created by julius on 21/09/2018.
  */
 @RunWith(SpringRunner.class)
-public class LoginServicesTest {
+@SpringBootTest(classes = {ExamApplication.class, H2Config.class})
+@ActiveProfiles("test")
+public class LoginServiceImplTests {
 
   @Mock
   private LoginRepository loginRepository;
 
-  @InjectMocks
-  private LoginServiceImpl loginService;
+  @Autowired
+  private LoginService loginService;
 
   @Before
   public void setUp() {
-    List<Date> dateList = new ArrayList<>();
+    /*List<Date> dateList = new ArrayList<>();
     dateList.add(new Date());
     Mockito.when(loginRepository.findAllUniqueDates())
-        .thenReturn(dateList);
+        .thenReturn(dateList);*/
 
     List<String> users = new ArrayList<>();
     users.add("Juan");

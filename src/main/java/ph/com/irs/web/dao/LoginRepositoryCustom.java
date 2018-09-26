@@ -1,6 +1,7 @@
 package ph.com.irs.web.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,4 +19,6 @@ public interface LoginRepositoryCustom {
    */
   Map<String, Long> findUserAndLoginCountBy(Predicate predicate);
 
+
+  List<String> findAllUniqueDates2();
 }

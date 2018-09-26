@@ -1,10 +1,14 @@
 package ph.com.irs.web.dao.impl;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,7 @@ import ph.com.irs.web.model.QLogin;
 @Repository
 public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
 
-  private final QLogin login = QLogin.login;
+  private static final QLogin login = QLogin.login;
 
   @Autowired
   private JPAQueryFactory queryFactory;
@@ -47,5 +51,20 @@ public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
         .transform(GroupBy.groupBy(login.user).as(login.loginTime.count().as(count)));
 
     return logs;
+  }
+
+  @Override
+  public List<String> findAllUniqueDates2() {
+    StringTemplate template = Expressions
+        .stringTemplate("DATE_FORMAT({0}, {1})", login.loginTime, "%Y%m%d");
+
+    List<String> dates = queryFactory
+        .select(template)
+        .from(login)
+        .where()
+        .groupBy(login.loginTime)
+        .orderBy(login.loginTime.asc())
+        .fetch();
+    return dates;
   }
 }
