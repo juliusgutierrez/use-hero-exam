@@ -3,6 +3,7 @@ package ph.com.irs.web.service.impl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,7 +22,7 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
 
   private static final Long DEFAULT_COUNT = 100000L;
 
-  private static String[] USERS = {
+  private static final String[] USERS = {
       "Janette", "Everette", "Angelica", "Zechariah", "Anya", "Precious", "Makenzie", "Mohammad",
       "Kristofer", "Catherine", "Darby", "Haskell"
   };
@@ -61,14 +62,15 @@ public class RecordGenerationServiceImpl implements RecordGenerationService {
    * generate a random date
    */
   public static LocalDateTime randomDate() {
-    int randomDateToMinus = (int) (Math.random() * 30 + 1);
-    int randomTimeToMinus = (int) (Math.random() * 23 + 1);
-    int randomMonth = (int) (Math.random() * 12 + 1);
+    Random random = new Random();
+
+    int randomDateToMinus = (random.nextInt() * 30 + 1);
+    int randomTimeToMinus = (random.nextInt() * 23 + 1);
+    int randomMonth = (random.nextInt() * 12 + 1);
     LocalDate randomDate = LocalDate.now().minusDays(randomDateToMinus);
     LocalTime randomTime = LocalTime.now().minusHours(randomTimeToMinus);
-    LocalDateTime localDateTime = LocalDateTime.of(randomDate, randomTime)
+    return LocalDateTime.of(randomDate, randomTime)
         .withMonth(randomMonth);
-    return localDateTime;
   }
 
   /**

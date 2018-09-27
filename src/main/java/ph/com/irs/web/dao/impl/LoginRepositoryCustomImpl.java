@@ -25,27 +25,24 @@ public class LoginRepositoryCustomImpl implements LoginRepositoryCustom {
 
   @Override
   public List<String> findUsersBy(Predicate predicate) {
-    List<String> users = queryFactory
+    return queryFactory
         .select(login.user)
         .from(login)
         .where(predicate)
         .groupBy(login.user)
         .orderBy(login.user.asc())
         .fetch();
-    return users;
   }
 
   @Override
   public Map<String, Long> findUserAndLoginCountBy(Predicate predicate) {
 
     NumberPath<Long> count = Expressions.numberPath(Long.class, "c");
-    Map<String, Long> logs = queryFactory
+    return queryFactory
         .select(login.user, login.loginTime.count().as(count))
         .from(login)
         .where(predicate)
         .groupBy(login.user)
         .transform(GroupBy.groupBy(login.user).as(login.loginTime.count().as(count)));
-
-    return logs;
   }
 }

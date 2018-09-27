@@ -16,8 +16,7 @@ public class BaseResponseDTO<T> {
 
   public enum Status {
     SUCCESS,
-    ERROR
-    ;
+    ERROR;
   }
 
   public String getMessage() {

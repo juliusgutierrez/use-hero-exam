@@ -16,7 +16,7 @@ import ph.com.irs.web.model.QLogin;
 public class LoginFilterPredicateBuilder {
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
-  private final QLogin login = QLogin.login;
+  private static final QLogin login = QLogin.login;
   private LocalDateTime start;
   private LocalDateTime end;
   private List<String> attributes1;
