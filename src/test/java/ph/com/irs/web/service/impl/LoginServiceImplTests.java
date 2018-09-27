@@ -73,45 +73,45 @@ public class LoginServiceImplTests {
 
   //TODO :MySql Function "DATE_FORMAT" is not available in H2 yet
   @Test(expected = JpaSystemException.class)
-  public void testGetAllUniqueLoginDate() {
+  public void when_getAllUniqueLoginDate_expect_hasTwo() {
     List<Date> dateList = loginService.getAllUniqueLoginDate();
     Assert.assertThat(dateList, hasSize(2));
   }
 
 
   @Test
-  public void testGetAllUniqueUsersByShouldReturnNotNull() {
+  public void when_getAllUniqueUsersBy_expect_hasTwo() {
     List<String> users = loginService.getAllUniqueUsersBy(null, null);
     Assert.assertThat(users, hasSize(2));
   }
 
   @Test
-  public void testStartDateOnlyOfGetAllUniqueUsers() {
+  public void when_getAllUniqueUsersStartDateHasVal_expect_notNull() {
     List<String> users = loginService.getAllUniqueUsersBy("20180901", null);
     Assert.assertNotNull(users);
   }
 
   @Test
-  public void testEndDateOnlyOfGetAllUniqueUsers() {
+  public void when_getAllUniqueUsersEndDateHasVal_expect_notNull() {
     List<String> users = loginService.getAllUniqueUsersBy(null, "20181231");
     Assert.assertNotNull(users);
   }
 
   @Test
-  public void testStartAndEndDateOfGetAllUniqueUsers() {
+  public void when_getAllUniqueUsersDatesHasVal_expect_hasItem() {
     List<String> users = loginService.getAllUniqueUsersBy("20180901", "20181231");
     Assert.assertThat(users, hasItem("Juan"));
   }
 
   @Test
-  public void testGetAllLoginsBy() {
+  public void when_getAllLoginsBy_expect_loginCountIsGreaterThanZero() {
     Map<String, Long> logs = loginService.getAllLoginsBy("20180101", "20181231",
         null, null, null, null);
     Assert.assertThat(logs.get("Juan"), greaterThan(0L));
   }
 
   @Test
-  public void testAttr1OfGetAllLoginsBy() {
+  public void when_getAllLoginsByAttr1HasVal_expect_hasKey() {
     List<String> attr1 = new ArrayList<>();
     attr1.add("AAA");
 
@@ -121,7 +121,7 @@ public class LoginServiceImplTests {
   }
 
   @Test
-  public void testAttr2OfGetAllLoginsByShouldReturnNon() {
+  public void when_getAllLoginsByAttr2HasWrongVal_expect_notExist() {
     List<String> attr2 = new ArrayList<>();
     attr2.add("CAB");
 
